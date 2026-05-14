@@ -63,7 +63,7 @@ the analysis.
 | `src/finetune.py` | Contrastive fine-tuning utilities for the bi-encoder (training-pair builder + trainer wrapper) |
 | `eval/uia_eval.yaml` | Hand-written question set with abstention tests |
 | `scripts/00`–`11` (all numbered run scripts) | End-to-end drivers over the `src/` modules |
-| `scripts/08_make_plots.py` | All ablation plots |
+| `scripts/08_make_plots.py` | Plots |
 | `scripts/10_finetune_embedder.py` | Trains MiniLM on a held-out BEIR/NQ subset; this is the project's training step |
 | `scripts/11_chatbot_gui.py` | Gradio chat GUI wrapping `RagPipeline` with streaming + sources panel |
 | `scripts/inspect_uia.py` | Utility CLI to browse/search the scraped UiA corpus (debugging aid) |
