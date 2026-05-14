@@ -1,0 +1,40 @@
+# Compatible with Python 3.11 / 3.12 / 3.13.
+# Pins are minor-version where possible so patch releases land automatically;
+# packages that don't yet ship 3.13 wheels at older versions are bumped.
+
+# Core
+langchain>=0.3.7,<0.4
+langchain-text-splitters>=0.3.2,<0.4
+langchain-community>=0.3.5,<0.4
+langchain-ollama>=0.2.0,<0.3
+ollama>=0.3.3,<0.5
+langchain-huggingface>=0.1.2,<0.2
+
+# Embeddings & retrieval
+sentence-transformers>=3.2,<4
+faiss-cpu>=1.9.0.post1,<2
+torch>=2.6,<3            # 2.6 is the first release with cp313 wheels
+accelerate>=0.26,<2      # required by sentence-transformers 3.x for model.fit()
+transformers>=4.41,<5    # pulled in by sentence-transformers, pinned for stability
+
+# Benchmark
+beir>=2.0.0,<3
+
+# Scraping
+requests>=2.32,<3
+beautifulsoup4>=4.12,<5
+trafilatura>=1.12,<2
+lxml>=5.3,<6
+
+# Eval & utils
+pandas>=2.2,<3
+numpy>=2.0,<3            # 1.26.x has no cp313 wheels; 2.x does
+pyyaml>=6.0,<7
+tqdm>=4.67,<5
+matplotlib>=3.9,<4
+
+# GUI (optional, for scripts/11_chatbot_gui.py)
+gradio>=5.0,<6
+
+# Notebook (optional)
+jupyter>=1.1,<2

@@ -1,0 +1,167 @@
+# UiA chatbot evaluation set.
+#
+# Each entry is one test question. Schema:
+#
+#   id:                       unique short id, e.g. "q01"
+#   question:                 the user-facing question
+#   reference_answer:         human-written ideal answer (free text, used by
+#                             LLM-as-judge as reference and shown in the report)
+#   must_include_any:         list of substrings; the generated answer must
+#                             contain at least one (case-insensitive)
+#   must_include_all:         list of substrings; the generated answer must
+#                             contain all (case-insensitive)
+#   expected_source_contains: list of substrings; at least one retrieved
+#                             source URL OR title must contain one of these
+#   should_abstain:           true if the system SHOULD answer "I don't know
+#                             based on the provided context" (negative test)
+#
+# Empty `must_include_*` lists are ignored. Tune the keyword lists after you
+# inspect the actual scraped pages — placeholders below are educated guesses.
+
+- id: q01
+  question: What programmes does UiA offer in ICT at the master level?
+  reference_answer: >
+    UiA offers several master's programmes related to ICT, including
+    Cybersecurity, Information and Communication Technology, and
+    Multimedia and Educational Technology, taught at the Grimstad campus.
+  must_include_any: ["master", "Master"]
+  must_include_all: []
+  expected_source_contains: ["master", "ikt", "ict"]
+  should_abstain: false
+
+- id: q02
+  question: Where is the ICT department located?
+  reference_answer: >
+    The Department of ICT is located at the Grimstad campus of the
+    University of Agder.
+  must_include_any: ["Grimstad"]
+  must_include_all: []
+  expected_source_contains: ["grimstad", "department", "ikt", "ict"]
+  should_abstain: false
+
+- id: q03
+  question: How long is the bachelor programme in computer engineering?
+  reference_answer: >
+    The bachelor in computer engineering at UiA is a three-year (180 ECTS)
+    full-time programme.
+  must_include_any: ["3", "three", "180"]
+  must_include_all: []
+  expected_source_contains: ["bachelor", "engineering", "computer"]
+  should_abstain: false
+
+- id: q04
+  question: What is IKT469 about?
+  reference_answer: >
+    IKT469 is a deep learning course covering modern neural network
+    architectures including attention mechanisms, transformers, CNNs,
+    GNNs, and generative models.
+  must_include_any: ["deep learning", "neural", "transformer"]
+  must_include_all: []
+  expected_source_contains: ["ikt469", "deep learning"]
+  should_abstain: false
+
+- id: q05
+  question: What language are the master courses taught in?
+  reference_answer: >
+    Most master-level courses in ICT at UiA are taught in English.
+  must_include_any: ["English", "english"]
+  must_include_all: []
+  expected_source_contains: ["language", "english", "master"]
+  should_abstain: false
+
+- id: q06
+  question: How do I apply to a UiA master programme as an international student?
+  reference_answer: >
+    International applicants apply through UiA's online application system.
+    Application deadlines and requirements are listed on the admissions
+    page; programmes have specific entry requirements.
+  must_include_any: ["application", "apply", "admission"]
+  must_include_all: []
+  expected_source_contains: ["application", "admission", "international"]
+  should_abstain: false
+
+- id: q07
+  question: What are the entry requirements for the Cybersecurity master?
+  reference_answer: >
+    The Cybersecurity master typically requires a relevant bachelor's
+    degree in ICT, computer science, or a closely related field, with
+    specified course prerequisites.
+  must_include_any: ["bachelor", "degree", "requirement"]
+  must_include_all: []
+  expected_source_contains: ["cybersecurity", "requirement", "admission"]
+  should_abstain: false
+
+- id: q08
+  question: Who teaches IKT469?
+  reference_answer: >
+    IKT469 is taught by faculty at UiA's ICT department; check the course
+    page for the current course responsible.
+  must_include_any: ["IKT469", "ikt469"]
+  must_include_all: []
+  expected_source_contains: ["ikt469"]
+  should_abstain: false
+
+- id: q09
+  question: How many ECTS credits is a typical UiA master course?
+  reference_answer: >
+    Typical UiA courses are worth 5, 7.5, or 10 ECTS; a master programme
+    totals 120 ECTS.
+  must_include_any: ["ECTS", "credit"]
+  must_include_all: []
+  expected_source_contains: ["ects", "credit"]
+  should_abstain: false
+
+- id: q10
+  question: Does UiA offer a PhD programme in ICT?
+  reference_answer: >
+    Yes, UiA offers a PhD programme in ICT through the Faculty of
+    Engineering and Science at Grimstad.
+  must_include_any: ["PhD", "phd", "doctoral"]
+  must_include_all: []
+  expected_source_contains: ["phd", "doctoral", "research"]
+  should_abstain: false
+
+- id: q11
+  question: Does UiA offer part time for their masters courses in AI and Cybersecurity?
+  reference_answer: >
+    Yes, UiA offers the possibility to take most masters degrees part time over for years instead of two
+  must_include_any: ["masters", "part time"]
+  must_include_all: []
+  expected_source_contains: ["part time"]
+  should_abstain: false
+
+- id: q12
+  question: What is IKT452 about?
+  reference_answer: >
+    IKT452 is a computer vision course covering how computers represent the visual world of humans. 
+  must_include_any: ["computer vision", "image", "IKT452"]
+  must_include_all: []
+  expected_source_contains: ["ikt452", "computer vision"]
+  should_abstain: false
+
+# Negative / abstention tests: the chatbot SHOULD refuse to answer because
+# the information is not on the UiA site (or doesn't exist).
+
+- id: n01
+  question: What is the price of a parking permit at the University of Oslo?
+  reference_answer: I don't know based on the provided context.
+  must_include_any: ["don't know", "do not know", "not in", "not available", "no information"]
+  must_include_all: []
+  expected_source_contains: []
+  should_abstain: true
+
+- id: n02
+  question: When does IKT9999 start?
+  reference_answer: I don't know based on the provided context.
+  must_include_any: ["don't know", "do not know", "not in", "not available", "no information"]
+  must_include_all: []
+  expected_source_contains: []
+  should_abstain: true
+
+- id: n03
+  question: When does the sun rise today?
+  reference_answer: I don't know based on the provided context.
+  must_include_any: ["don't know", "do not know", "not in", "not available", "no information"]
+  must_include_all: []
+  expected_source_contains: []
+  should_abstain: true
